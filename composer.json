@@ -4,14 +4,14 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "ddavidov",
-            "email": "ddavidov@mindk.com"
+            "name": "yar",
+            "email": "yar@yar.com"
         }
     ],
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:ddavidov/stud_framework.git"
+            "url": "https://github.com/Yar-ua/stud_framework.git"
         }
     ],
     "require": {
