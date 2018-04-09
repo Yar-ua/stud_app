@@ -46,8 +46,52 @@ class ProductController
     /**
      * Create product
      */
-    function create(){
+    function create(Request $request, ProductModel $model){
 
         //@TODO: Implement this
+        // Accept the assumption that from the form in POST request 
+        // comes the embedded JSON hash with the key "formData"
+        // stuff like {"formData": {"...":"...", "...":"..." ...}
+        // You can eject all sended data's from raw_data,
+        // just call: $request->get('storage', null, array)
+
+        // Take information, what sendeed in form
+        $data = $request->get('formData', null, 'array');
+
+        if(empty($data)) {
+            throw new \Exception('No POST data to create item');
+        }
+
+        $item = $model->create($data);
+
+        return $item;
+    }
+
+    /**
+     * Update the product
+     */
+    function update(Request $request, ProductModel $model, $id) {
+
+        $data = $request->get('formData', null, 'array');
+
+        if(empty($data)) {
+            throw new \Exception('No PUT data to update item, nothing changes');
+        }
+
+        $item = $model->save($id, $data);
+        // TO DO this
+        // TO DO this
+        // TO DO this
+        return $item;
+    }
+
+    /**
+     * Delete the product
+     */
+    function delete(ProductModel $model, $id) {
+        
+        $item = $model->delete($id);
+        return $item;
+
     }
 }
