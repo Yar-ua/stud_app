@@ -19,4 +19,14 @@ return [
         'path' => '/product',
         'method' => 'POST'
     ],
+    'product_update' => [
+        'handler' => 'App\Controllers\ProductController@update',
+        'path' => '/product/{id}',
+        'method' => 'PUT'
+    ],
+    'product_delete' => [
+        'handler' => 'App\Controllers\ProductController@delete',
+        'path' => '/product/{id}',
+        'method' => 'DELETE'
+    ],
 ];
