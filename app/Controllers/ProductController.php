@@ -79,9 +79,7 @@ class ProductController
         }
 
         $item = $model->save($id, $data);
-        // TO DO this
-        // TO DO this
-        // TO DO this
+
         return $item;
     }
 
