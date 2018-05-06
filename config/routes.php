@@ -30,4 +30,22 @@ return [
         'path' => '/product/{id}',
         'method' => 'DELETE'
     ],
+    'user_login' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@login',
+        'path' => '/login',
+        'method' => 'POST',
+        'acl' => ['guest']
+    ],
+    'user_register' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@register',
+        'path' => '/register',
+        'method' => 'POST',
+        'acl' => ['guest']
+    ],
+    'user_logout' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@logout',
+        'path' => '/logout',
+        'method' => 'GET',
+        'acl' => ['user', 'admin']
+    ]
 ];
