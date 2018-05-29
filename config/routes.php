@@ -8,7 +8,8 @@ return [
     // products routing
     'index' => [
         'handler' => 'App\Controllers\ProductController@index',
-        'path' => '/products'
+        'path' => '/products',
+        'method' => 'GET'
     ],
     'product_show' => [
         'handler' => 'App\Controllers\ProductController@show',
