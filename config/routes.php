@@ -5,31 +5,34 @@ return [
         'handler' => 'App\Controllers\Controller@home',
         'path' => '/'
     ],
+    // products routing
     'index' => [
         'handler' => 'App\Controllers\ProductController@index',
-        'path' => '/products'
+        'path' => '/products',
+        'method' => 'GET'
     ],
     'product_show' => [
         'handler' => 'App\Controllers\ProductController@show',
-        'path' => '/product/{id}',
+        'path' => '/products/{id}',
         'method' => 'GET'
     ],
     'product_create' => [
         'handler' => 'App\Controllers\ProductController@create',
-        'path' => '/product',
+        'path' => '/products',
         'method' => 'POST',
         'acl' => ['user', 'admin']
     ],
     'product_update' => [
         'handler' => 'App\Controllers\ProductController@update',
-        'path' => '/product/{id}',
+        'path' => '/products/{id}',
         'method' => 'PUT'
     ],
     'product_delete' => [
         'handler' => 'App\Controllers\ProductController@delete',
-        'path' => '/product/{id}',
+        'path' => '/products/{id}',
         'method' => 'DELETE'
     ],
+    // user's routing
     'user_login' => [
         'handler' => 'Mindk\Framework\Controllers\UserController@login',
         'path' => '/login',
