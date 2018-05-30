@@ -50,5 +50,15 @@ return [
         'path' => '/logout',
         'method' => 'GET',
         'acl' => ['user', 'admin']
-    ]
+    ],
+    'image_index' => [
+        'handler' => 'App\Controllers\ImageController@index',
+        'path' => '/images',
+        'method' => 'GET'
+    ],
+    'image_create' => [
+        'handler' => 'App\Controllers\ImageController@create',
+        'path' => '/images',
+        'method' => 'POST'
+    ],
 ];
