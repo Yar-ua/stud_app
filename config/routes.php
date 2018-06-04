@@ -51,14 +51,15 @@ return [
         'method' => 'GET',
         'acl' => ['user', 'admin']
     ],
-    'image_index' => [
-        'handler' => 'App\Controllers\ImageController@index',
-        'path' => '/images',
-        'method' => 'GET'
-    ],
+    // image's routing
     'image_create' => [
         'handler' => 'App\Controllers\ImageController@create',
         'path' => '/images',
         'method' => 'POST'
     ],
+    'image_delete' => [
+        'handler' => 'App\Controllers\ImageController@delete',
+        'path' => '/images/{id}',
+        'method' => 'DELETE'
+    ]
 ];
