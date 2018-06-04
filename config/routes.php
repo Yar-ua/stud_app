@@ -55,11 +55,13 @@ return [
     'image_create' => [
         'handler' => 'App\Controllers\ImageController@create',
         'path' => '/images',
-        'method' => 'POST'
+        'method' => 'POST',
+        'acl' => ['user', 'admin']
     ],
     'image_delete' => [
         'handler' => 'App\Controllers\ImageController@delete',
         'path' => '/images/{id}',
-        'method' => 'DELETE'
+        'method' => 'DELETE',
+        'acl' => ['user', 'admin']
     ]
 ];
