@@ -25,12 +25,14 @@ return [
     'product_update' => [
         'handler' => 'App\Controllers\ProductController@update',
         'path' => '/products/{id}',
-        'method' => 'PUT'
+        'method' => 'PUT',
+        'acl' => ['user', 'admin']
     ],
     'product_delete' => [
         'handler' => 'App\Controllers\ProductController@delete',
         'path' => '/products/{id}',
-        'method' => 'DELETE'
+        'method' => 'DELETE',
+        'acl' => ['user', 'admin']
     ],
     // user's routing
     'user_login' => [

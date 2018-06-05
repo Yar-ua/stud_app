@@ -53,9 +53,23 @@ class ProductController
         //@TODO: Implement this
         // Accept the assumption that from the form in POST request 
         // comes the embedded JSON hash with the key "formData"
-        // stuff like {"formData": {"...":"...", "...":"..." ...}
-        // You can eject all sended data's from raw_data,
-        // just call: $request->get('storage', null, array)
+        // stuff like {"formData": {"...":"...", "...":"..." ...}, "image": {"filename":"...", "body":"..."}
+        
+        // request example:
+        //         {
+        // "formData": 
+        //     {
+        //         "name":"google",
+        //         "description":"expensive firm",
+        //         "price":"1000"
+        //     },
+        // "image":
+        //     {
+        //         "filename":"1aa.jpeg",
+        //         "body":"data:image/png;base64,iVBORw0KG ... base64 code of image body must be here "
+        //     }
+        // }
+
 
         // Take information, what sendeed in form
         $user = AuthService::getUser();
@@ -105,14 +119,28 @@ class ProductController
 
         $user = AuthService::getUser();
         $item = $model->load($id);
+
+        // validate authorisation
         if ( ($item->user_id == $user->id) or ($user->role == 'admin') ) {
+            //if valid - remove image
             if ($imageModel->remove($id)) {
+                //if image removed - delete product data from DB
                 $item = $model->delete($id);
             } else {
                 throw new \Exception('Deleting error - product not deleted');
             }
+            return $item;
+        } else {
+            throw new \Exception('Forbidden - you are not product owner or admin');
         }
-
-        return $item;
     }
 }
+
+
+/*
+SELECT * FROM products 
+inner join images
+on products.id = images.product_id
+WHERE products.id = 55
+
+*/
