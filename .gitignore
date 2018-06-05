@@ -4,4 +4,7 @@ composer.lock
 /vendor
 /error.log
 
-/public/uploads/*
+/public/uploads/*.gif
+/public/uploads/*.jpg
+/public/uploads/*.jpeg
+/public/uploads/*.png
