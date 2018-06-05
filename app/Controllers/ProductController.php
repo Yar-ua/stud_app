@@ -122,10 +122,10 @@ class ProductController
 
         // validate authorisation
         if ( ($item->user_id == $user->id) or ($user->role == 'admin') ) {
-            //if valid - remove image
-            if ($imageModel->remove($id)) {
-                //if image removed - delete product data from DB
-                $item = $model->delete($id);
+            //  if valid - remove image
+            if ($item = $model->delete($id)) {
+                //  if product deleted from DB - remove image from server and DB
+                $imageModel->remove($id);
             } else {
                 throw new \Exception('Deleting error - product not deleted');
             }

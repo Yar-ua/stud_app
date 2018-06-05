@@ -57,13 +57,8 @@ class ImageModel extends Model
             '` WHERE `product_id`='.(int)$id;
         $image = $this->dbo->setQuery($sql)->getResult($this);
         if ($image) {
-            if (unlink('uploads/' . $image->path)) {
-                return parent::delete($image->id);
-            } else {
-                throw new \Exception('Image not deleted');
-            }
-        } else {
-            throw new \Exception('There is no file with current id');
+            unlink('uploads/' . $image->path);
+            return parent::delete($image->id);
         }
     }
 
