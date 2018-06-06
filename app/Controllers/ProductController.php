@@ -49,8 +49,6 @@ class ProductController
      * Create product
      */
     function create(Request $request, ProductModel $model, ImageModel $imageModel){
-
-        //@TODO: Implement this
         // Accept the assumption that from the form in POST request 
         // comes the embedded JSON hash with the key "formData"
         // stuff like {"formData": {"...":"...", "...":"..." ...}, "image": {"filename":"...", "body":"..."}
@@ -74,6 +72,7 @@ class ProductController
         // Take information, what sendeed in form
         $user = AuthService::getUser();
         $data = $request->get('formData', null, 'array');
+        // inject user_id in request for correct saving in DB
         $data += ['user_id' => $user->id];
         $imageData = $request->get('image', null, '');
 
@@ -86,11 +85,7 @@ class ProductController
 
         //if creating was successful
         if ($item->id) {
-            // uploading image
-            if(!empty($imageData["filename"]) and !empty($imageData["body"])) {
-                $imageData += ['product_id' => $item->id];
-                $imageModel->upload($imageData);
-            }
+            $imageModel->upload($imageData, $item->id);
         }
 
         return $item;
@@ -138,9 +133,9 @@ class ProductController
 
 
 /*
-SELECT * FROM products 
-inner join images
-on products.id = images.product_id
-WHERE products.id = 55
+SELECT products.*, images.path 
+FROM `products`
+inner join images on products.id = images.product_id
+where products.id = 78
 
 */
