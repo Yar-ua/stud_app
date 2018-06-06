@@ -46,11 +46,33 @@ class ImageModel extends Model
                 throw new \Exception('Image not uploaded');
             }
         }
-
-        // if image upload => $data = ['product_id' => $product_id, 'path' => $filename] 
-        // in not upload => $data =  ['product_id' => $product_id]
         return parent::create($data); 
+    }
 
+    /**
+     * Update image in DB and uploaded file if image was load 
+     *
+     * @param   array $data['filename' => '...', 'body' => '...', 'product_id' => '...']
+     *
+     * @return  object
+     */
+    public function update($imageData, $product_id){
+        if(!empty($imageData["filename"]) and !empty($imageData["body"])) {
+            self::remove($product_id);
+            $ext = substr($imageData['filename'], 1 + strrpos($imageData['filename'], "."));
+
+            // validate correct file extendion
+            if (!in_array($ext, self::$valid_types)) {
+                throw new \Exception('Incorrect type of image, must be jpg, jpeg, png or gif');
+            }
+
+            $filename = md5(microtime()) . '.' . $ext;
+            $body = explode("base64,", $imageData['body']);
+
+            file_put_contents('uploads/' . $filename, base64_decode($body[1]));
+            $data = ['product_id' => $product_id, 'path' => $filename];
+            parent::create($data);
+        }
     }
 
    /**

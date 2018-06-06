@@ -21,7 +21,7 @@ class ProductController
      */
     function index(ProductModel $model){
 
-        return $model->getList();
+        return $model->index();
     }
 
     /**
@@ -94,15 +94,19 @@ class ProductController
     /**
      * Update the product
      */
-    function update(Request $request, ProductModel $model, $id) {
+    function update(Request $request, ProductModel $model, $id, ImageModel $imageModel) {
 
         $data = $request->get('formData', null, 'array');
+        $imageData = $request->get('image', null, '');
 
         if(empty($data)) {
             throw new \Exception('No PUT data to update item, nothing changes');
         }
 
         $item = $model->save($id, $data);
+        if ($item->id) {
+            $imageModel->update($imageData, $item->id);
+        }
 
         return $item;
     }
