@@ -20,13 +20,14 @@ class ProductModel extends Model
      *
      * @return  product inner join image
      */
-    public function index() {
+    public function index($orderBy, $sort) {
 
         $sql = 'SELECT users.id AS user_id, products.*, images.path
                 FROM images
                 INNER JOIN (products inner join users 
                 ON users.id = products.user_id)
-                ON products.id = images.product_id';
+                ON products.id = images.product_id
+                ORDER BY ' . $orderBy . ' ' . $sort;
 
         return $this->dbo->setQuery($sql)->getList(get_class($this));
     }
@@ -41,8 +42,13 @@ class ProductModel extends Model
      */
     public function show($id) {
 
-        $sql = 'SELECT products.*, images.path FROM products 
-                INNER JOIN `images` ON products.id = images.product_id 
+        $sql =  'SELECT users.login AS user_login, 
+                users.email AS user_email, users.phone AS user_phone, 
+                products.*, images.path
+                FROM images
+                INNER JOIN (products inner join users 
+                ON users.id = products.user_id)
+                ON products.id = images.product_id
                 WHERE products.id = ' . (int)$id;
 
         return $this->dbo->setQuery($sql)->getResult($this);

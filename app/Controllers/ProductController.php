@@ -19,9 +19,13 @@ class ProductController
     /**
      * Products index page
      */
-    function index(ProductModel $model){
+    function index(Request $request, ProductModel $model){
+        // my framework deal
+        // request must be like: GET .../products?page=2&type=name&sort=desc
+        $orderBy = ($request->get('type') ? $request->get('type') : 'name');
+        $sort = ($request->get('sort') ? $request->get('sort') : 'asc');
 
-        return $model->index();
+        return $model->index($orderBy, $sort);
     }
 
     /**
@@ -35,7 +39,7 @@ class ProductController
      */
     function show(ProductModel $model, $id){
 
-        $item = $model->load($id);
+        $item = $model->show($id);
 
         // Check if record exists
         if(empty($item)) {
