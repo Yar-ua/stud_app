@@ -22,10 +22,24 @@ class ProductController
     function index(Request $request, ProductModel $model){
         // my framework deal
         // request must be like: GET .../products?page=2&type=name&sort=desc
-        $orderBy = ($request->get('type') ? $request->get('type') : 'name');
-        $sort = ($request->get('sort') ? $request->get('sort') : 'asc');
 
-        return $model->index($orderBy, $sort);
+        $page = $request->get('page', '', 'int');
+        $orderBy = $request->get('type', '', 'string');
+        $sort = $request->get('sort', '', 'string');
+
+        if ($page < 1) {
+            $page = 1;
+        }
+        $page--; 
+
+        if ( ($orderBy == "") or ($orderBy == "undefined") ) {
+            $orderBy = 'name';
+        }
+        if ( ($sort == "") or ($sort == "undefined") ) {
+            $sort = 'asc';
+        }
+
+        return $model->index($orderBy, $sort, $page*10);
     }
 
     /**
@@ -138,12 +152,3 @@ class ProductController
         }
     }
 }
-
-
-/*
-SELECT products.*, images.path 
-FROM `products`
-inner join images on products.id = images.product_id
-where products.id = 78
-
-*/
