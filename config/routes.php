@@ -25,12 +25,14 @@ return [
     'product_update' => [
         'handler' => 'App\Controllers\ProductController@update',
         'path' => '/products/{id}',
-        'method' => 'PUT'
+        'method' => 'PUT',
+        'acl' => ['user', 'admin']
     ],
     'product_delete' => [
         'handler' => 'App\Controllers\ProductController@delete',
         'path' => '/products/{id}',
-        'method' => 'DELETE'
+        'method' => 'DELETE',
+        'acl' => ['user', 'admin']
     ],
     // user's routing
     'user_login' => [
@@ -49,6 +51,19 @@ return [
         'handler' => 'Mindk\Framework\Controllers\UserController@logout',
         'path' => '/logout',
         'method' => 'GET',
+        'acl' => ['user', 'admin']
+    ],
+    // image's routing
+    'image_create' => [
+        'handler' => 'App\Controllers\ImageController@create',
+        'path' => '/images',
+        'method' => 'POST',
+        'acl' => ['user', 'admin']
+    ],
+    'image_delete' => [
+        'handler' => 'App\Controllers\ImageController@delete',
+        'path' => '/images/{id}',
+        'method' => 'DELETE',
         'acl' => ['user', 'admin']
     ]
 ];

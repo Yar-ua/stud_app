@@ -3,3 +3,8 @@
 composer.lock
 /vendor
 /error.log
+
+/public/uploads/*.gif
+/public/uploads/*.jpg
+/public/uploads/*.jpeg
+/public/uploads/*.png
