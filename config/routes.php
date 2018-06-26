@@ -65,5 +65,25 @@ return [
         'path' => '/images/{id}',
         'method' => 'DELETE',
         'acl' => ['user', 'admin']
+    ],
+    // users controller routing
+    // available just for user->role == 'admin'
+    'user_index' => [
+        'handler' => 'App\Controllers\UserAppController@index',
+        'path' => '/users',
+        'method' => 'GET',
+        'acl' => ['admin']
+    ],
+    'user_show' => [
+        'handler' => 'App\Controllers\UserAppController@show',
+        'path' => '/users/{id}',
+        'method' => 'GET',
+        'acl' => ['admin']
+    ],
+    'user_update' => [
+        'handler' => 'App\Controllers\UserAppController@update',
+        'path' => '/users/{id}',
+        'method' => 'PUT',
+        'acl' => ['admin']
     ]
 ];
